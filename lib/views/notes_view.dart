@@ -18,7 +18,8 @@ class _NotesViewState extends State<NotesView> {
     return Scaffold(
       floatingActionButton: SpeedDial(
         elevation: 0,
-        childPadding: const EdgeInsets.only(bottom: 5),
+        overlayColor: Colors.black,
+        childPadding: const EdgeInsets.all(4),
         backgroundColor: Colors.cyanAccent,
         activeIcon: Icons.close,
         iconTheme: const IconThemeData(color: Colors.black),
