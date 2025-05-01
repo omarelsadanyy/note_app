@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/models/note_model.dart';
+import 'package:note_app/widgets/notes_item.dart';
+
+class NotesListView extends StatelessWidget {
+  const NotesListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotesCubit, NotesState>(
+      builder: (context, state) {
+        // Handle the NotesDeleted state, which means all notes are deleted
+        if (state is NotesDelted) {
+          return const Center(
+            child: Text(
+              'No notes available.',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          );
+        }
+
+        // Handle the NotesInitial or NotesSuccess state
+        if (state is NotesInitial) {
+          return const Center(child: CircularProgressIndicator()); // Loading spinner when data is being fetched
+        }
+
+        if (state is NotesSuccess) {
+          List<NoteModel> notesList = BlocProvider.of<NotesCubit>(context).notesList ?? []; 
+
+          // If the list is empty after fetching, show an empty state
+          if (notesList.isEmpty) {
+            return const Center(
+              child: Text(
+                'No notes available.',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            );
+          }
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: notesList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: NotesItem(note: notesList[index]),
+                );
+              },
+            ),
+          );
+        }
+
+        return const Center(child: CircularProgressIndicator()); // Fallback if no state matches
+      },
+    );
+  }
+}
