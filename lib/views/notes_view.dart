@@ -56,7 +56,8 @@ class _NotesViewState extends State<NotesView> {
               style: TextStyle(color: Colors.white, fontSize: 14),
             ),
             onTap: () {
-              context.read<NotesCubit>().deleteAllNotes();
+             // context.read<NotesCubit>().deleteAllNotes();
+              BlocProvider.of<NotesCubit>(context).deleteAllNotes();
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('All notes deleted')),
               );

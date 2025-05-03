@@ -24,6 +24,6 @@ List<NoteModel>? notesList ;
     var notesBox = Hive.box<NoteModel>(kNotesBox);
     notesBox.clear();
     notesList?.clear();
-    emit(NotesDelted());
+    emit(NotesDeleted());
   }
 }

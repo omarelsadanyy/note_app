@@ -11,8 +11,7 @@ class NotesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
-        // Handle the NotesDeleted state, which means all notes are deleted
-        if (state is NotesDelted) {
+        if (state is NotesDeleted) {
           return const Center(
             child: Text(
               'No notes available.',
@@ -21,15 +20,14 @@ class NotesListView extends StatelessWidget {
           );
         }
 
-        // Handle the NotesInitial or NotesSuccess state
         if (state is NotesInitial) {
-          return const Center(child: CircularProgressIndicator()); // Loading spinner when data is being fetched
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (state is NotesSuccess) {
           List<NoteModel> notesList = BlocProvider.of<NotesCubit>(context).notesList ?? []; 
 
-          // If the list is empty after fetching, show an empty state
+          
           if (notesList.isEmpty) {
             return const Center(
               child: Text(
