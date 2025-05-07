@@ -25,7 +25,7 @@ class NotesListView extends StatelessWidget {
         }
 
         if (state is NotesSuccess) {
-          List<NoteModel> notesList = BlocProvider.of<NotesCubit>(context).notesList ?? []; 
+          List<NoteModel> notesList = BlocProvider.of<NotesCubit>(context).notesList; 
 
           
           if (notesList.isEmpty) {
@@ -36,7 +36,21 @@ class NotesListView extends StatelessWidget {
               ),
             );
           }
-
+             if(NotesCubit.get(context).searchedNotes.isNotEmpty){
+               return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: NotesCubit.get(context).searchedNotes.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child:NotesItem(note: NotesCubit.get(context).searchedNotes[index]),
+                );
+              },
+            ),
+          );
+             }
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ListView.builder(
@@ -45,7 +59,7 @@ class NotesListView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: NotesItem(note: notesList[index]),
+                  child:NotesItem(note: notesList[index]),
                 );
               },
             ),
