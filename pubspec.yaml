@@ -43,8 +43,12 @@ dependencies:
   meta: ^1.16.0
   bloc: ^9.0.0
   flutter_native_splash: ^2.4.6
+  
+
+
 dev_dependencies:
   build_runner: ^2.4.6
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -67,8 +71,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - 
+  assets:
+    -  assets/images/note_splash_logo_android_11_ios.png
+    -  assets/images/note_splash_logo_android12.png
+    -  assets/images/app_icon.png  
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
