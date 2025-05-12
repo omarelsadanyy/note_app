@@ -32,17 +32,18 @@ class NotesItem extends StatelessWidget {
             ListTile(
               title: Text(
                 note.title,
-                style: const TextStyle(
+                style:  TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color:getContrastingTextColor(Color(note.color)),
                 ),
               ),
               subtitle:  Padding(
                 padding: EdgeInsets.only(top: 16, bottom: 16),
                 child: Text(
                   note.content,
-                  style: TextStyle(fontSize: 17, color: Color(0x80000000)),
+                  style: TextStyle(fontSize: 17, color:getContrastingTextColor(Color(note.color))
+                  ),
                 ),
               ),
               trailing: IconButton(
@@ -51,9 +52,9 @@ class NotesItem extends StatelessWidget {
                   note.delete();
                   BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                 },
-                icon: const Icon(
+                icon:  Icon(
                   FontAwesomeIcons.trash,
-                  color: Colors.black,
+                  color:getContrastingTextColor(Color(note.color)),
                   size: 24,
                 ),
               ),
@@ -62,7 +63,7 @@ class NotesItem extends StatelessWidget {
               padding: EdgeInsets.only(right: 20, top: 10),
               child: Text(
                 note.date,
-                style: TextStyle(fontSize: 15, color: Color(0x66000000)),
+                style: TextStyle(fontSize: 15, color: getContrastingTextColor(Color(note.color))),
               ),
             ),
           ],
@@ -88,4 +89,8 @@ class NotesItem extends StatelessWidget {
     },
   );
 }
+
+Color getContrastingTextColor(Color backgroundColor) {
+    return backgroundColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
+  }
 }
